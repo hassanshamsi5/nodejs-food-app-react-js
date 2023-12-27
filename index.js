@@ -3,7 +3,7 @@ const app = express()
 const cors = require('cors')
 const port = process.env.PORT || 6001
 require('dotenv').config();
-console.log(process.env.DB_USER)
+// console.log(process.env.DB_USER)
 
 
 //middleware 
@@ -21,17 +21,15 @@ const client = new MongoClient(uri, {
         strict: true,
         deprecationErrors: true,
     }
-}); 
+});
 
 async function run() {
     try {
         const menuCollections = client.db("demo-food-client").collection("menus")
         const cartCollections = client.db("demo-food-client").collection("cartItems")
-
         app.get('/menu', async (req, res) => {
             const result = await menuCollections.find().toArray();
             res.send(result)
-
         })
 
         await client.connect();
@@ -42,13 +40,13 @@ async function run() {
 
         // await client.close();
     }
-}   
+}
 run().catch(console.dir);
 
 
-app.get('/', (req, res) => {
-    res.send('Hello Developer')
-})
+// app.get('/', (req, res) => {
+//     res.send('Hello Developer')
+// })
 
 app.listen(port, () => {
     console.log(`Example app lister on port ${port}`);
